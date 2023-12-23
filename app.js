@@ -22,11 +22,12 @@ function jsonToCsv(json, delimiter = ',') {
 }
 
 function saveCsv(csv, filename) {
-  fs.writeFile(filename, csv, (err) => {
+  const BOM = '\uFEFF';
+  fs.writeFile(filename, BOM + csv, 'utf8', err => {
     if (err) {
       console.error('There was an error writing the CSV file:', err);
     } else {
-      console.log(`${filename} was saved successfully!`);
+      console.log(`${filename} was saved successfully in UTF-8 encoding.`);
     }
   });
 }
